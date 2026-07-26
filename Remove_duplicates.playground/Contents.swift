@@ -57,3 +57,29 @@ for (index,value) in arr3.enumerated() {
 //func twoSum(arr: [Int], target: Int) -> Int {
 //    
 //}
+
+// Removing the duplicate elements in an array and return the array
+
+func removeDuplicatesArray(arr: [Int]) -> [Int] {
+    var arr = arr.sorted()
+    var left = 0
+    for right in 1..<arr.count {
+        if arr[left] != arr[right] {
+            left += 1
+            arr[left] = arr[right]
+        }
+    }
+    return Array(arr[0...left])
+}
+print(removeDuplicatesArray(arr: [10,10,20,100,90,40]))
+
+// Concept:
+// nums[0...left]
+// yeh ArraySlice return karta hai — pura Array nahi!
+
+// Array(nums[0...left])
+// ArraySlice ko proper Array mein convert karta hai ✅
+
+
+let arr4 = [1,2,3,4,5]
+print(arr4[0...2])
