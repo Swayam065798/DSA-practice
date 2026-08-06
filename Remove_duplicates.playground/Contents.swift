@@ -22,13 +22,13 @@ var arr = [1,1,2,3,4,5,6]
 print(removeDuplicates(arr: arr))
 
 // for in loops use
-// 1. Array traverse karna
+// MARK: 1. Array traverse karna
 // for i in 0..<arr.count { }         // ✅ most common
 //
-//2. Value directly chahiye
+// MARK: 2. Value directly chahiye
 // for num in arr { }                  // ✅ clean
 //
-//3. Index + Value dono chahiye
+// MARK: 3. Index + Value dono chahiye
 //for (index, num) in arr.enumerated() { }  // ✅ Two Sum mein use kiya!
 //
 // 4. Reverse traverse
@@ -58,7 +58,7 @@ for (index,value) in arr3.enumerated() {
 //    
 //}
 
-// Removing the duplicate elements in an array and return the array
+// MARK: Removing the duplicate elements in an array and return the array
 
 func removeDuplicatesArray(arr: [Int]) -> [Int] {
     var arr = arr.sorted()
@@ -83,3 +83,35 @@ print(removeDuplicatesArray(arr: [10,10,20,100,90,40]))
 
 let arr4 = [1,2,3,4,5]
 print(arr4[0...2])
+
+func removeDuplicateNumbers(_ nums: [Int]) -> [Int] {
+    var arr = nums.sorted()
+    var freq: [Int: Bool] = [:]
+    var res:[Int] = []
+    for num in arr {
+        if freq[num] == nil {
+            freq[num] = true
+            res.append(num)
+        }
+    }
+    return res
+}
+var nums = [1,2,33,44,90,13,13,100]
+print(removeDuplicateNumbers(nums))
+
+// MARK: remove the duplicates from an unsorted array
+func removeTheDuplicates(nums: [Int]) -> [Int] {
+    var arr = nums
+    var freq: [Int:Bool] = [:]
+    var result: [Int] = []
+    for num in arr {
+        if freq[num] == nil {
+            freq[num] = true
+            result.append(num)
+        }
+    }
+    return result
+}
+
+var numsArr = [2,1,1,3,9,7,8,9,2,0,0,6,5]
+print(removeTheDuplicates(nums: numsArr))
