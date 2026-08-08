@@ -115,3 +115,60 @@ func removeTheDuplicates(nums: [Int]) -> [Int] {
 
 var numsArr = [2,1,1,3,9,7,8,9,2,0,0,6,5]
 print(removeTheDuplicates(nums: numsArr))
+
+
+// MARK: removing duplicates from the strinmg
+func removeDuplicatesString(s: String) -> String {
+    var result: String = ""
+    var freq: [Character:Bool] = [:]
+    for count in s {
+        if freq[count] == nil {
+            freq[count] = true
+            result.append(count)
+        }
+    }
+    return result
+}
+
+var dup = "Programming"
+print(removeDuplicatesString(s: dup))
+
+// MARK: first non-repeating characters
+func removeFirstNonrepeating(s: String) -> Character {
+    var freq: [Character:Int] = [:]
+    
+    for char in s {
+        freq[char,default: 0] += 1
+    }
+    
+    for char in s {
+        if freq[char] == 1 {
+            return char
+        }
+    }
+    return " "
+}
+var str = "Swayaaaaam"
+print(removeFirstNonrepeating(s: str))
+
+func findTwoSum(nums: [Int], target: Int) -> [Int] {
+    var arr = nums.sorted()
+    
+    var lef = 0
+    var right = arr.count - 1
+    while lef < right {
+        var sum = arr[lef] + arr[right]
+        if sum == target {
+            return [lef,right]
+        } else if sum < target {
+            lef += 1
+        } else {
+            right -= 1
+        }
+    }
+    return []
+}
+
+var arr2SUm = [2,1,5,6,7,9,0]
+// here, the sorted array index is being returned
+print(findTwoSum(nums: arr2SUm, target: 15))
