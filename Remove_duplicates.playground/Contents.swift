@@ -165,10 +165,94 @@ func findTwoSum(nums: [Int], target: Int) -> [Int] {
         } else {
             right -= 1
         }
+//        if sum > target {
+//            right -= 1
+//        } else if sum < target {
+//            lef += 1
+//        } else {
+//            return [lef,right]
+//        }
+        
     }
     return []
 }
 
 var arr2SUm = [2,1,5,6,7,9,0]
 // here, the sorted array index is being returned
-print(findTwoSum(nums: arr2SUm, target: 15))
+print("dhup:\(findTwoSum(nums: arr2SUm, target: 15))")
+
+func containsDuplicateinArray(_ nums: [Int]) -> Bool {
+    var freq: [Int: Int] = [:]
+
+    for num in nums {
+        freq[num, default: 0] += 1
+    }
+
+    for count in freq.values {
+        if count > 1 {
+            return true
+        }
+    }
+
+    return false
+}
+
+// MARK: Dictionary operatioins
+var freq: [Character: Int] = [
+    "a": 3,
+    "b": 2,
+    "c": 1
+]
+// returns the no. of key-value pairs in dictioanry
+print(freq.count)
+
+var freq1: [Character: Int] = [:]
+
+freq1["a", default: 0] += 1
+freq1["a", default: 0] += 1
+freq1["b", default: 0] += 1
+
+print(freq1)
+freq1["a", default: 0]
+print(freq1["a", default: 0])
+
+var freq2: [Character: Int] = [
+    "a": 2,
+    "b": 1
+]
+let x = freq["z"]
+print(x)
+let y = freq["z", default: 0]
+print(y)
+
+//dict[key]
+//    ↓
+//Key might not exist
+//    ↓
+//Optional
+//    ↓
+//nil if missing
+//
+//
+//dict[key, default: 0]
+//    ↓
+//Key might not exist
+//    ↓
+//Use 0 instead
+
+
+// Need ALL dictionary values → .values
+//Need value for ONE key → dictionary[key]
+
+class Node {
+    var value: Int
+    var nodnext: Node?
+    init(value: Int) {
+        self.value = value
+    }
+}
+
+let node1 = Node(value: 10)
+let node2 = node1.nodnext
+print("node1:\(node1)")
+print("node2:\(node2)")

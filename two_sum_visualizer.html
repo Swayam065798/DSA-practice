@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Sum — Line by Line</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #f5f5f0; padding: 24px; color: #1a1a18; }
+  h1 { font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #888780; margin-bottom: 20px; }
+
+  .array-row { display: flex; gap: 8px; margin-bottom: 20px; align-items: flex-end; }
+  .arr-cell { width: 56px; height: 56px; border: 0.5px solid #D3D1C7; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; transition: all 0.3s; }
+  .arr-cell.active { border: 2px solid #534AB7; background: #EEEDFE; }
+  .arr-cell.found { border: 2px solid #3B6D11; background: #EAF3DE; }
+  .arr-val { font-family: monospace; font-size: 18px; font-weight: 500; }
+  .arr-idx { font-size: 10px; color: #888780; margin-top: 2px; }
+  .arr-cell.active .arr-val { color: #3C3489; }
+  .arr-cell.found .arr-val { color: #27500A; }
+  .target-badge { background: #FAEEDA; border: 0.5px solid #854F0B; border-radius: 8px; padding: 8px 16px; font-size: 13px; color: #633806; font-weight: 500; margin-left: 12px; }
+
+  .code-card { background: #fff; border: 0.5px solid #D3D1C7; border-radius: 12px; padding: 16px 20px; margin-bottom: 16px; }
+  .code-line { font-family: monospace; font-size: 13px; padding: 5px 8px; border-radius: 6px; color: #5F5E5A; line-height: 1.6; transition: all 0.3s; }
+  .code-line.active { background: #EEEDFE; color: #26215C; font-weight: 500; border-left: 3px solid #534AB7; padding-left: 10px; }
+  .code-line.success { background: #EAF3DE; color: #173404; font-weight: 500; border-left: 3px solid #3B6D11; padding-left: 10px; }
+
+  .explanation { background: #fff; border-left: 3px solid #534AB7; border-radius: 0 8px 8px 0; padding: 12px 16px; margin-bottom: 16px; font-size: 14px; color: #1a1a18; line-height: 1.6; min-height: 48px; }
+
+  .state-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .state-card { background: #fff; border: 0.5px solid #D3D1C7; border-radius: 10px; padding: 12px 16px; }
+  .state-label { font-size: 11px; color: #888780; margin-bottom: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .state-value { font-family: monospace; font-size: 14px; font-weight: 500; color: #1a1a18; min-height: 20px; }
+
+  .result-box { display: none; background: #EAF3DE; border: 0.5px solid #3B6D11; border-radius: 12px; padding: 14px 20px; font-size: 14px; color: #173404; font-weight: 500; margin-bottom: 16px; line-height: 1.6; }
+
+  .btn-row { display: flex; gap: 8px; }
+  button { background: #fff; border: 0.5px solid #B4B2A9; border-radius: 8px; padding: 8px 18px; font-size: 13px; cursor: pointer; color: #1a1a18; transition: all 0.2s; }
+  button:hover { background: #f1efe8; border-color: #888780; }
+  button.primary { background: #534AB7; color: #fff; border-color: #534AB7; }
+  button.primary:hover { background: #3C3489; }
+  .step-counter { font-size: 12px; color: #888780; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<h1>Two Sum — Line by Line Dry Run</h1>
+<p class="subtitle">nums = [2, 7, 11, 15] &nbsp;|&nbsp; target = 9</p>
+
+<div class="array-row">
+  <div class="arr-cell" id="cell-0"><span class="arr-val">2</span><span class="arr-idx">idx 0</span></div>
+  <div class="arr-cell" id="cell-1"><span class="arr-val">7</span><span class="arr-idx">idx 1</span></div>
+  <div class="arr-cell" id="cell-2"><span class="arr-val">11</span><span class="arr-idx">idx 2</span></div>
+  <div class="arr-cell" id="cell-3"><span class="arr-val">15</span><span class="arr-idx">idx 3</span></div>
+  <div class="target-badge">target = 9</div>
+</div>
+
+<div class="code-card">
+  <div class="code-line" id="l0">func twoSum(_ nums: [Int], _ target: Int) -> [Int] {</div>
+  <div class="code-line" id="l1">&nbsp;&nbsp;var map: [Int: Int] = [:]</div>
+  <div class="code-line" id="l2">&nbsp;&nbsp;for (index, num) in nums.enumerated() {</div>
+  <div class="code-line" id="l3">&nbsp;&nbsp;&nbsp;&nbsp;let need = target - num</div>
+  <div class="code-line" id="l4">&nbsp;&nbsp;&nbsp;&nbsp;if let foundIndex = map[need] {</div>
+  <div class="code-line" id="l5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return [foundIndex, index]</div>
+  <div class="code-line" id="l6">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+  <div class="code-line" id="l7">&nbsp;&nbsp;&nbsp;&nbsp;map[num] = index</div>
+  <div class="code-line" id="l8">&nbsp;&nbsp;}</div>
+  <div class="code-line" id="l9">&nbsp;&nbsp;return []</div>
+  <div class="code-line" id="l10">}</div>
+</div>
+
+<div class="step-counter" id="step-counter">Step 0 of 8</div>
+<div class="explanation" id="explanation">▶ Press "Next Step" to start the dry run!</div>
+
+<div class="state-grid">
+  <div class="state-card"><div class="state-label">map (dictionary)</div><div class="state-value" id="s-map">[:]</div></div>
+  <div class="state-card"><div class="state-label">need = target - num</div><div class="state-value" id="s-need">—</div></div>
+  <div class="state-card"><div class="state-label">index (current position)</div><div class="state-value" id="s-index">—</div></div>
+  <div class="state-card"><div class="state-label">num (current value)</div><div class="state-value" id="s-num">—</div></div>
+</div>
+
+<div class="result-box" id="result-box">
+  🎉 Answer found!<br>
+  return [0, 1]<br>
+  nums[0] = 2, nums[1] = 7<br>
+  2 + 7 = 9 = target ✅
+</div>
+
+<div class="btn-row">
+  <button onclick="prev()">← Prev</button>
+  <button class="primary" onclick="next()">Next Step →</button>
+  <button onclick="reset()">↺ Reset</button>
+</div>
+
+<script>
+const steps = [
+  {
+    lines: [1], cell: -1, success: false,
+    map: "[:]", need: "—", index: "—", num: "—",
+    explanation: "Line 1: map dictionary banaya — abhi bilkul khali hai. Yahan numbers aur unke index store honge.",
+    showResult: false
+  },
+  {
+    lines: [2], cell: 0, success: false,
+    map: "[:]", need: "—", index: "0", num: "2",
+    explanation: "Line 2: Loop shuru! Pehla element uthaya — index = 0, num = 2.",
+    showResult: false
+  },
+  {
+    lines: [3], cell: 0, success: false,
+    map: "[:]", need: "7", index: "0", num: "2",
+    explanation: "Line 3: need = target - num = 9 - 2 = 7. Matlab mujhe 7 chahiye kisi aur index pe!",
+    showResult: false
+  },
+  {
+    lines: [4], cell: 0, success: false,
+    map: "[:]", need: "7", index: "0", num: "2",
+    explanation: "Line 4: map[7] check karo — map khali hai! nil milta hai. if let FAIL ❌ — andar nahi jayenge. Skip!",
+    showResult: false
+  },
+  {
+    lines: [7], cell: 0, success: false,
+    map: "[2: 0]", need: "7", index: "0", num: "2",
+    explanation: "Line 7: map[num] = index → map[2] = 0. Store kar liya — '2 index 0 pe dikh chuka hai'!",
+    showResult: false
+  },
+  {
+    lines: [2], cell: 1, success: false,
+    map: "[2: 0]", need: "7", index: "1", num: "7",
+    explanation: "Line 2: Loop aage badha! Doosra element uthaya — index = 1, num = 7.",
+    showResult: false
+  },
+  {
+    lines: [3], cell: 1, success: false,
+    map: "[2: 0]", need: "2", index: "1", num: "7",
+    explanation: "Line 3: need = target - num = 9 - 7 = 2. Matlab mujhe 2 chahiye kisi aur index pe!",
+    showResult: false
+  },
+  {
+    lines: [4], cell: 1, success: false,
+    map: "[2: 0]", need: "2", index: "1", num: "7",
+    explanation: "Line 4: map[2] check karo — map = [2:0] — mil gaya! foundIndex = 0. if let SUCCESS ✅ — andar jayenge!",
+    showResult: false
+  },
+  {
+    lines: [5], cell: 1, success: true,
+    map: "[2: 0]", need: "2", index: "1", num: "7",
+    explanation: "Line 5: return [foundIndex, index] = return [0, 1]. nums[0]=2 aur nums[1]=7 → 2+7=9 = target! 🎉",
+    showResult: true
+  }
+];
+
+let current = 0;
+
+function render() {
+  const s = steps[current];
+  document.getElementById('step-counter').textContent = `Step ${current} of ${steps.length - 1}`;
+
+  // Reset all lines
+  for (let i = 0; i <= 10; i++) {
+    const el = document.getElementById('l' + i);
+    if (el) { el.className = 'code-line'; }
+  }
+
+  // Highlight active lines
+  s.lines.forEach(l => {
+    const el = document.getElementById('l' + l);
+    if (el) el.className = s.success ? 'code-line success' : 'code-line active';
+  });
+
+  // Reset cells
+  for (let i = 0; i < 4; i++) {
+    document.getElementById('cell-' + i).className = 'arr-cell';
+  }
+  if (s.cell >= 0) {
+    document.getElementById('cell-' + s.cell).className = s.success ? 'arr-cell found' : 'arr-cell active';
+  }
+
+  document.getElementById('explanation').textContent = s.explanation;
+  document.getElementById('s-map').textContent = s.map;
+  document.getElementById('s-need').textContent = s.need;
+  document.getElementById('s-index').textContent = s.index;
+  document.getElementById('s-num').textContent = s.num;
+  document.getElementById('result-box').style.display = s.showResult ? 'block' : 'none';
+}
+
+function next() { if (current < steps.length - 1) { current++; render(); } }
+function prev() { if (current > 0) { current--; render(); } }
+function reset() { current = 0; render(); }
+
+render();
+</script>
+</body>
+</html>
