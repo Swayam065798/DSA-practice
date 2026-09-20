@@ -151,6 +151,7 @@ func removeFirstNonrepeating(s: String) -> Character {
 var str = "Swayaaaaam"
 print(removeFirstNonrepeating(s: str))
 
+// MARK: two pointers only applicable to sorted arrays
 func findTwoSum(nums: [Int], target: Int) -> [Int] {
     var arr = nums.sorted()
     
@@ -158,20 +159,20 @@ func findTwoSum(nums: [Int], target: Int) -> [Int] {
     var right = arr.count - 1
     while lef < right {
         var sum = arr[lef] + arr[right]
-        if sum == target {
-            return [lef,right]
-        } else if sum < target {
-            lef += 1
-        } else {
-            right -= 1
-        }
-//        if sum > target {
-//            right -= 1
+//        if sum == target {
+//            return [lef,right]
 //        } else if sum < target {
 //            lef += 1
 //        } else {
-//            return [lef,right]
+//            right -= 1
 //        }
+        if sum > target {
+            right -= 1
+        } else if sum < target {
+            lef += 1
+        } else {
+            return [lef,right]
+        }
         
     }
     return []
@@ -256,3 +257,38 @@ let node1 = Node(value: 10)
 let node2 = node1.nodnext
 print("node1:\(node1)")
 print("node2:\(node2)")
+
+func sumOfArrays(nums: [Int], target: Int) -> [Int] {
+    var freq: [Int: Int] = [:]
+    for (index,value) in nums.enumerated() {
+        let idx = target - value
+        if let foundIdx = freq[idx] {
+            return [foundIdx,index]
+        }
+        freq[value] = index
+    }
+    return []
+}
+print(sumOfArrays(nums: [1,2,3,7], target: 9))
+
+
+func productOfArrays(nums: [Int]) -> [Int] {
+    var prefix = 1
+    var result: [Int] = []
+    
+    for i in 0..<nums.count {
+        result.append(prefix)
+        prefix = prefix * nums[i]
+    }
+    
+    var i = nums.count - 1
+    var suffix = 1
+    while i>=0 {
+        result[i] = result[i] * suffix
+        suffix = suffix * nums[i]
+        i -= 1
+    }
+    return result
+}
+
+print(productOfArrays(nums: [1,2,3,4]))
